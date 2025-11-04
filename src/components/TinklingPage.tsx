@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import imgColumn2 from "figma:asset/7d8380adaae1cd33a31168570eb65b7707216808.png";
 import imgColumn3 from "figma:asset/1b1fe005aec6b48895acd4562a9091a6d2cf842b.png";
 import modernTinklingImage from "figma:asset/a12f5a083a60db2a7a8958cc4c45d9171bf665f1.png";
@@ -5,10 +6,8 @@ import discordSvgPaths from "../imports/svg-3075tc4bla";
 
 function SignUpButton() {
   return (
-    <a 
-      href="https://campusgroups.rit.edu/ACS/tinikling-sign-up/"
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link 
+      to="/tinikling/sign-up"
       className="block w-full max-w-[280px]"
     >
       <div className="bg-black relative rounded-[10px] size-full hover:bg-gray-800 transition-all duration-200">
@@ -21,7 +20,7 @@ function SignUpButton() {
         </div>
         <div aria-hidden="true" className="absolute border border-solid border-black inset-0 pointer-events-none rounded-[10px]" />
       </div>
-    </a>
+    </Link>
   );
 }
 
