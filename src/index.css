@@ -77,6 +77,7 @@
     --spacing: .25rem;
     --container-sm: 24rem;
     --container-lg: 32rem;
+    --container-5xl: 64rem;
     --container-6xl: 72rem;
     --container-7xl: 80rem;
     --text-xs: .75rem;
@@ -514,8 +515,20 @@
     top: calc(var(--spacing) * 32);
   }
 
+  .top-60 {
+    top: calc(var(--spacing) * 60);
+  }
+
+  .top-\[-1px\] {
+    top: -1px;
+  }
+
   .top-\[1px\] {
     top: 1px;
+  }
+
+  .top-\[7px\] {
+    top: 7px;
   }
 
   .top-\[18px\] {
@@ -562,8 +575,16 @@
     top: 107px;
   }
 
+  .top-\[110px\] {
+    top: 110px;
+  }
+
   .top-\[124px\] {
     top: 124px;
+  }
+
+  .top-\[132px\] {
+    top: 132px;
   }
 
   .top-\[147px\] {
@@ -594,6 +615,10 @@
     top: 175px;
   }
 
+  .top-\[206\.5px\] {
+    top: 206.5px;
+  }
+
   .top-full {
     top: 100%;
   }
@@ -620,6 +645,14 @@
 
   .right-4 {
     right: calc(var(--spacing) * 4);
+  }
+
+  .right-\[-10\.84\%\] {
+    right: -10.84%;
+  }
+
+  .right-\[-13\.79\%\] {
+    right: -13.79%;
   }
 
   .right-\[-40px\] {
@@ -678,8 +711,16 @@
     left: calc(var(--spacing) * 72);
   }
 
+  .left-\[13\.79\%\] {
+    left: 13.79%;
+  }
+
   .left-\[18px\] {
     left: 18px;
+  }
+
+  .left-\[19px\] {
+    left: 19px;
   }
 
   .left-\[34px\] {
@@ -692,6 +733,10 @@
 
   .left-\[63px\] {
     left: 63px;
+  }
+
+  .left-\[75px\] {
+    left: 75px;
   }
 
   .left-\[100px\] {
@@ -710,8 +755,16 @@
     left: 350px;
   }
 
+  .left-\[507px\] {
+    left: 507px;
+  }
+
   .left-\[520px\] {
     left: 520px;
+  }
+
+  .left-\[602px\] {
+    left: 602px;
   }
 
   .isolate {
@@ -990,6 +1043,16 @@
     height: 61px;
   }
 
+  .size-\[150px\] {
+    width: 150px;
+    height: 150px;
+  }
+
+  .size-\[194px\] {
+    width: 194px;
+    height: 194px;
+  }
+
   .size-full {
     width: 100%;
     height: 100%;
@@ -1047,6 +1110,10 @@
     height: 1.15rem;
   }
 
+  .h-\[1px\] {
+    height: 1px;
+  }
+
   .h-\[18\.92px\] {
     height: 18.92px;
   }
@@ -1067,12 +1134,28 @@
     height: 25px;
   }
 
+  .h-\[37px\] {
+    height: 37px;
+  }
+
   .h-\[43px\] {
     height: 43px;
   }
 
+  .h-\[61px\] {
+    height: 61px;
+  }
+
+  .h-\[75px\] {
+    height: 75px;
+  }
+
   .h-\[77px\] {
     height: 77px;
+  }
+
+  .h-\[106px\] {
+    height: 106px;
   }
 
   .h-\[130px\] {
@@ -1243,6 +1326,10 @@
     width: calc(var(--spacing) * 16);
   }
 
+  .w-32 {
+    width: calc(var(--spacing) * 32);
+  }
+
   .w-64 {
     width: calc(var(--spacing) * 64);
   }
@@ -1261,6 +1348,10 @@
 
   .w-\[25px\] {
     width: 25px;
+  }
+
+  .w-\[92px\] {
+    width: 92px;
   }
 
   .w-\[100px\] {
@@ -1299,6 +1390,18 @@
     width: 360px;
   }
 
+  .w-\[406px\] {
+    width: 406px;
+  }
+
+  .w-\[425px\] {
+    width: 425px;
+  }
+
+  .w-\[777px\] {
+    width: 777px;
+  }
+
   .w-\[calc\(100\%-36px\)\] {
     width: calc(100% - 36px);
   }
@@ -1331,6 +1434,10 @@
     max-width: var(--skeleton-width);
   }
 
+  .max-w-5xl {
+    max-width: var(--container-5xl);
+  }
+
   .max-w-6xl {
     max-width: var(--container-6xl);
   }
@@ -1347,6 +1454,10 @@
     max-width: 280px;
   }
 
+  .max-w-\[425px\] {
+    max-width: 425px;
+  }
+
   .max-w-\[600px\] {
     max-width: 600px;
   }
@@ -1361,6 +1472,10 @@
 
   .max-w-none {
     max-width: none;
+  }
+
+  .max-w-sm {
+    max-width: var(--container-sm);
   }
 
   .min-w-0 {
@@ -1680,6 +1795,10 @@
     gap: calc(var(--spacing) * 8);
   }
 
+  .gap-16 {
+    gap: calc(var(--spacing) * 16);
+  }
+
   .gap-\[5px\] {
     gap: 5px;
   }
@@ -1902,7 +2021,7 @@
     background-color: #69d7e5;
   }
 
-  .bg-\[\#99e3ed\] {
+  .bg-\[\#99E3ED\], .bg-\[\#99e3ed\] {
     background-color: #99e3ed;
   }
 
@@ -1910,8 +2029,16 @@
     background-color: #23464b;
   }
 
+  .bg-\[\#195259\] {
+    background-color: #195259;
+  }
+
   .bg-\[\#a9e1eb\] {
     background-color: #a9e1eb;
+  }
+
+  .bg-\[\#bceef8\] {
+    background-color: #bceef8;
   }
 
   .bg-\[\#d9d9d9\] {
@@ -2222,6 +2349,10 @@
     padding-block: calc(var(--spacing) * 6);
   }
 
+  .py-8 {
+    padding-block: calc(var(--spacing) * 8);
+  }
+
   .py-\[7px\] {
     padding-block: 7px;
   }
@@ -2515,6 +2646,10 @@
 
   .whitespace-pre {
     white-space: pre;
+  }
+
+  .text-\[\#23464b\] {
+    color: #23464b;
   }
 
   .text-\[\#061314\] {

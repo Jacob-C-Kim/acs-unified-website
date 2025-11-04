@@ -3,13 +3,14 @@ import { NavigationHeader } from "../components/shared/NavigationHeader";
 import CalendarPageComponent from "../components/CalendarPage";
 
 export default function CalendarPage() {
-  const [currentPage] = useState('calendar');
+  const [currentPage, setCurrentPage] = useState('calendar');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const normalHeaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Set initial header height and mobile state
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -40,6 +41,15 @@ export default function CalendarPage() {
     };
   }, []);
 
+  // Reset scroll position when navigating to a new page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
+  const handleNavigation = (page: string) => {
+    setCurrentPage(page);
+  };
+
   // Calculate transition progress for header
   const triggerPoint = headerHeight / 2;
   const transitionDistance = headerHeight / 3;
@@ -54,7 +64,7 @@ export default function CalendarPage() {
   const stickyScale = 0.98 + (progress * 0.02);
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden w-full">
+    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
       {/* Header with smooth transition */}
       <div 
         ref={normalHeaderRef}
@@ -75,7 +85,10 @@ export default function CalendarPage() {
           willChange: 'transform, background-color, border-color, box-shadow'
         }}
       >
-        <NavigationHeader />
+        <NavigationHeader 
+          currentPage={currentPage}
+          onNavigate={handleNavigation}
+        />
       </div>
       
       {/* Spacer to prevent content jump when header becomes fixed */}

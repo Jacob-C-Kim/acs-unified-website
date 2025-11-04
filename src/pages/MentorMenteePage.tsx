@@ -4,7 +4,7 @@ import MentorMenteePageComponent from "../components/MentorMenteePage";
 import { useNavigate } from "react-router-dom";
 
 export default function MentorMenteePage() {
-  const [currentPage] = useState('mentor-mentee');
+  const [currentPage, setCurrentPage] = useState('mentor-mentee');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -12,6 +12,7 @@ export default function MentorMenteePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Set initial header height and mobile state
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -42,8 +43,17 @@ export default function MentorMenteePage() {
     };
   }, []);
 
+  // Reset scroll position when navigating to a new page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
   const handleNavigation = (page: string) => {
-    if (page === 'mentor-signup') {
+    // Since we only have Mentor/Mentee page, we can handle other navigation requests
+    // For now, just keep the current page as mentor-mentee
+    if (page === 'mentor-mentee') {
+      setCurrentPage(page);
+    } else if (page === 'mentor-signup') {
       navigate('/mentor-mentee/mentor/sign-up');
     } else if (page === 'mentee-signup') {
       navigate('/mentor-mentee/mentee/sign-up');
@@ -63,8 +73,9 @@ export default function MentorMenteePage() {
   const stickyOpacity = progress;
   const stickyScale = 0.98 + (progress * 0.02);
 
+  // Mentor/Mentee page with sticky header behavior
   return (
-    <div className="min-h-screen relative overflow-x-hidden w-full">
+    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
       {/* Header with smooth transition for Mentor/Mentee page */}
       <div 
         ref={normalHeaderRef}
@@ -85,7 +96,10 @@ export default function MentorMenteePage() {
           willChange: 'transform, background-color, border-color, box-shadow'
         }}
       >
-        <NavigationHeader />
+        <NavigationHeader 
+          currentPage={currentPage}
+          onNavigate={handleNavigation}
+        />
       </div>
       
       {/* Spacer to prevent content jump when header becomes fixed */}

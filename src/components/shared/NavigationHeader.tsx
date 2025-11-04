@@ -1,31 +1,51 @@
 import { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import ACSLogo from "./ACSLogo";
 
-export function NavigationHeader() {
+export function NavigationHeader({
+  currentPage,
+  onNavigate,
+}: {
+  currentPage?: string;
+  onNavigate?: (page: string) => void;
+} = {}) {
   const location = useLocation();
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState<string | null>(currentPage || null);
 
   useEffect(() => {
-    // Determine active section based on current route
-    const path = location.pathname;
-    if (path === "/" || path === "/home") {
-      setActiveSection("home");
-    } else if (path === "/about-us") {
-      setActiveSection("about-us");
-    } else if (path === "/acs-calendar" || path === "/calendar") {
-      setActiveSection("calendar");
-    } else if (path.startsWith("/mentor-mentee")) {
-      setActiveSection("mentor-mentee");
-    } else if (path.startsWith("/tinikling")) {
-      setActiveSection("tinikling");
+    // Determine active section based on current route or currentPage prop
+    if (currentPage) {
+      setActiveSection(currentPage);
+    } else {
+      const path = location.pathname;
+      if (path === "/" || path === "/home") {
+        setActiveSection("home");
+      } else if (path === "/about-us") {
+        setActiveSection("about-us");
+      } else if (path === "/acs-calendar" || path === "/calendar") {
+        setActiveSection("calendar");
+      } else if (path.startsWith("/mentor-mentee")) {
+        setActiveSection("mentor-mentee");
+      } else if (path.startsWith("/tinikling")) {
+        setActiveSection("tinikling");
+      }
     }
-  }, [location]);
+  }, [location, currentPage]);
 
   const linkCls = (key: string) =>
     `font-['Lexend:Regular',_sans-serif] font-normal leading-[0] relative shrink-0 text-[10px] md:text-[12px] text-center text-nowrap cursor-pointer transition-colors hover:text-blue-600 ${
       activeSection === key ? "text-blue-600" : "text-black"
     }`;
+
+  const handleNavClick = (path: string, keyName: string) => {
+    setActiveSection(keyName);
+    if (onNavigate) {
+      onNavigate(keyName);
+    } else {
+      navigate(path);
+    }
+  };
 
   const NavLink = ({
     to,
@@ -41,7 +61,7 @@ export function NavigationHeader() {
     <Link
       to={to}
       className={linkCls(keyName)}
-      onClick={() => setActiveSection(keyName)}
+      onClick={() => handleNavClick(to, keyName)}
     >
       <p className={`leading-[normal] whitespace-pre ${labelMobile ? "hidden sm:block" : ""}`}>
         {labelDesktop}
@@ -58,14 +78,14 @@ export function NavigationHeader() {
       <Link
         to="/"
         className="md:hidden cursor-pointer"
-        onClick={() => setActiveSection("home")}
+        onClick={() => handleNavClick("/", "home")}
       >
         <ACSLogo size={48} />
       </Link>
       <Link
         to="/"
         className="hidden md:block cursor-pointer"
-        onClick={() => setActiveSection("home")}
+        onClick={() => handleNavClick("/", "home")}
       >
         <ACSLogo size={61} />
       </Link>
@@ -85,4 +105,3 @@ export function NavigationHeader() {
     </div>
   );
 }
-
