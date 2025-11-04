@@ -1,17 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { NavigationHeader } from "../components/shared/NavigationHeader";
 import MentorSignup from "../components/MentorSignup";
-import { useNavigate } from "react-router-dom";
 
 export default function MentorSignUpPage() {
-  const [currentPage] = useState('mentor-signup');
+  const [currentPage, setCurrentPage] = useState('mentor-signup');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const normalHeaderRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
+    // Set initial header height and mobile state
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -23,6 +22,8 @@ export default function MentorSignUpPage() {
     };
 
     checkMobile();
+    
+    // Set header height after a small delay to ensure proper rendering
     const timeoutId = setTimeout(updateHeaderHeight, 100);
 
     const handleScroll = () => {
@@ -45,17 +46,20 @@ export default function MentorSignUpPage() {
   }, []);
 
   const handleNavigation = (page: string) => {
+    // Since we only have mentor signup, we can handle external navigation here
     if (page === 'home') {
-      navigate('/');
+      window.location.href = 'https://campusgroups.rit.edu/acs/home/';
     } else if (page === 'about-us') {
-      navigate('/about-us');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/about-us/';
     } else if (page === 'calendar') {
-      navigate('/acs-calendar');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/acs-calendar/';
     } else if (page === 'mentor-mentee') {
-      navigate('/mentor-mentee');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/mentor-mentee/';
     } else if (page === 'tinikling') {
-      navigate('/tinikling');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/tinikling/';
     }
+    // mentor-signup stays on current page
+    setCurrentPage('mentor-signup');
   };
 
   // Use default height of 77px if header height hasn't been calculated yet
@@ -75,7 +79,7 @@ export default function MentorSignUpPage() {
   const stickyScale = 0.98 + (progress * 0.02);
 
   return (
-    <div className="min-h-screen bg-[#FFD1ED] relative overflow-x-hidden w-full">
+    <div className="min-h-screen bg-[#69d7e5] relative overflow-x-hidden w-full">
       {/* Header with smooth transition - same as homepage/calendar */}
       <div 
         ref={normalHeaderRef}
@@ -96,7 +100,10 @@ export default function MentorSignUpPage() {
           willChange: 'transform, background-color, border-color, box-shadow'
         }}
       >
-        <NavigationHeader />
+        <NavigationHeader 
+          currentPage={currentPage}
+          onNavigate={handleNavigation}
+        />
       </div>
       
       {/* Spacer to prevent content jump when header becomes fixed */}

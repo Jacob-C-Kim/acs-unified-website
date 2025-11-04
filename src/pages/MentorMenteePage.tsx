@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { NavigationHeader } from "../components/shared/NavigationHeader";
-import MentorMenteePageComponent from "../components/MentorMenteePage";
+import MentorMenteePage from "../components/MentorMenteePage";
 import { useNavigate } from "react-router-dom";
 
-export default function MentorMenteePage() {
+export default function MentorMenteePageWrapper() {
   const [currentPage, setCurrentPage] = useState('mentor-mentee');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -53,11 +53,9 @@ export default function MentorMenteePage() {
     // For now, just keep the current page as mentor-mentee
     if (page === 'mentor-mentee') {
       setCurrentPage(page);
-    } else if (page === 'mentor-signup') {
-      navigate('/mentor-mentee/mentor/sign-up');
-    } else if (page === 'mentee-signup') {
-      navigate('/mentor-mentee/mentee/sign-up');
     }
+    // For other pages like calendar, home, etc., we could redirect to external URLs
+    // or handle them as needed in the future
   };
 
   // Calculate transition progress for header
@@ -75,7 +73,7 @@ export default function MentorMenteePage() {
 
   // Mentor/Mentee page with sticky header behavior
   return (
-    <div className="min-h-screen relative overflow-x-hidden w-full">
+    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
       {/* Header with smooth transition for Mentor/Mentee page */}
       <div 
         ref={normalHeaderRef}
@@ -107,7 +105,7 @@ export default function MentorMenteePage() {
         <div style={{ height: `${headerHeight}px` }} />
       )}
       
-      <MentorMenteePageComponent onNavigate={handleNavigation} hideHeader={true} />
+      <MentorMenteePage onNavigate={handleNavigation} hideHeader={true} />
     </div>
   );
 }

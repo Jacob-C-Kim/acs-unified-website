@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { NavigationHeader } from "../components/shared/NavigationHeader";
-import AboutUsPageComponent from "../components/AboutUsPage";
+import AboutUsPage from "../components/AboutUsPage";
 
-export default function AboutUsPage() {
+export default function AboutUsPageWrapper() {
   const [currentPage, setCurrentPage] = useState('about-us');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -65,7 +65,7 @@ export default function AboutUsPage() {
 
   // About Us page with sticky header behavior (same as homepage and calendar)
   return (
-    <div className="min-h-screen relative overflow-x-hidden w-full">
+    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
       {/* Header with smooth transition for about us page */}
       <div 
         ref={normalHeaderRef}
@@ -97,7 +97,7 @@ export default function AboutUsPage() {
         <div style={{ height: `${headerHeight}px` }} />
       )}
       
-      <AboutUsPageComponent />
+      <AboutUsPage />
     </div>
   );
 }

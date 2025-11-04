@@ -1,17 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { NavigationHeader } from "../components/shared/NavigationHeader";
-import TiniklingSignup from "../components/TiniklingSignup";
-import { useNavigate } from "react-router-dom";
+import MentorSignup from "../components/TiniklingSignup";
 
 export default function TiniklingSignUpPage() {
-  const [currentPage] = useState('tinikling-signup');
+  const [currentPage, setCurrentPage] = useState('tinikling-signup');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const normalHeaderRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
+    // Set initial header height and mobile state
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -23,6 +22,8 @@ export default function TiniklingSignUpPage() {
     };
 
     checkMobile();
+    
+    // Set header height after a small delay to ensure proper rendering
     const timeoutId = setTimeout(updateHeaderHeight, 100);
 
     const handleScroll = () => {
@@ -45,17 +46,20 @@ export default function TiniklingSignUpPage() {
   }, []);
 
   const handleNavigation = (page: string) => {
+    // Since we only have tinikling signup, we can handle external navigation here
     if (page === 'home') {
-      navigate('/');
+      window.location.href = 'https://campusgroups.rit.edu/acs/home/';
     } else if (page === 'about-us') {
-      navigate('/about-us');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/about-us/';
     } else if (page === 'calendar') {
-      navigate('/acs-calendar');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/acs-calendar/';
     } else if (page === 'mentor-mentee') {
-      navigate('/mentor-mentee');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/mentor-mentee/';
     } else if (page === 'tinikling') {
-      navigate('/tinikling');
+      window.location.href = 'https://campusgroups.rit.edu/ACS/tinikling/';
     }
+    // tinikling-signup stays on current page
+    setCurrentPage('tinikling-signup');
   };
 
   // Use default height of 77px if header height hasn't been calculated yet
@@ -96,7 +100,10 @@ export default function TiniklingSignUpPage() {
           willChange: 'transform, background-color, border-color, box-shadow'
         }}
       >
-        <NavigationHeader />
+        <NavigationHeader 
+          currentPage={currentPage}
+          onNavigate={handleNavigation}
+        />
       </div>
       
       {/* Spacer to prevent content jump when header becomes fixed */}
@@ -104,7 +111,7 @@ export default function TiniklingSignUpPage() {
         <div style={{ height: `${effectiveHeaderHeight}px` }} />
       )}
       
-      <TiniklingSignup />
+      <MentorSignup />
     </div>
   );
 }

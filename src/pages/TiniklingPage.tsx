@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { NavigationHeader } from "../components/shared/NavigationHeader";
-import TinklingPageComponent from "../components/TinklingPage";
+import TinklingPage from "../components/TinklingPage";
 
-export default function TiniklingPage() {
+export default function TiniklingPageWrapper() {
   const [currentPage, setCurrentPage] = useState('tinikling');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -63,8 +63,9 @@ export default function TiniklingPage() {
   const stickyOpacity = progress;
   const stickyScale = 0.98 + (progress * 0.02);
 
+  // Tinikling page with sticky header behavior (matching original homepage)
   return (
-    <div className="min-h-screen relative overflow-x-hidden w-full">
+    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
       {/* Header with smooth transition - exact same behavior as original homepage */}
       <div 
         ref={normalHeaderRef}
@@ -96,7 +97,7 @@ export default function TiniklingPage() {
         <div style={{ height: `${headerHeight}px` }} />
       )}
       
-      <TinklingPageComponent />
+      <TinklingPage />
     </div>
   );
 }

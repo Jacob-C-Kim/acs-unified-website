@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { NavigationHeader } from "../components/shared/NavigationHeader";
-import CalendarPageComponent from "../components/CalendarPage";
+import CalendarPage from "../components/CalendarPage";
 
-export default function CalendarPage() {
+export default function CalendarPageWrapper() {
   const [currentPage, setCurrentPage] = useState('calendar');
   const [scrollY, setScrollY] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -64,7 +64,7 @@ export default function CalendarPage() {
   const stickyScale = 0.98 + (progress * 0.02);
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden w-full">
+    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
       {/* Header with smooth transition */}
       <div 
         ref={normalHeaderRef}
@@ -96,7 +96,7 @@ export default function CalendarPage() {
         <div style={{ height: `${headerHeight}px` }} />
       )}
       
-      <CalendarPageComponent />
+      <CalendarPage />
     </div>
   );
 }
