@@ -54,7 +54,7 @@ export default function AboutUsPage() {
   const stickyScale = 0.98 + (progress * 0.02);
 
   return (
-    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
+    <div className="min-h-screen relative overflow-x-hidden w-full">
       {/* Header with smooth transition for about us page */}
       <div 
         ref={normalHeaderRef}
