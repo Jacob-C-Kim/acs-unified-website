@@ -2,22 +2,16 @@ import { useState, useRef, useEffect } from "react";
 import svgPaths from "../imports/svg-onqcmwzw98";
 import { events, Event, getSortedEvents } from "../data/events";
 
-// Helper function to get Mentor/Mentee specific events
-const getMentorMenteeEvents = (): Event[] => {
-  return events.filter(event => event.title === "Speed Dating");
-};
-
 function FilterButtons({ onNavigate }: { onNavigate?: (page: string) => void }) {
-  const handleCalendarClick = () => {
-    // Open the external CampusGroups calendar URL
-    window.open('https://campusgroups.rit.edu/ACS/acs-calendar/', '_blank', 'noopener,noreferrer');
-  };
-
   return (
     <div className="content-stretch flex gap-[18px] items-start justify-start relative shrink-0">
       <div 
         className="box-border content-stretch flex gap-2.5 items-center justify-center overflow-clip px-5 py-[7px] relative rounded-[10px] shrink-0 cursor-pointer transition-all duration-200 bg-[#8bd4e0] shadow-md hover:bg-[#7bc7d3]"
-        onClick={handleCalendarClick}
+        onClick={() => {
+          if (onNavigate) {
+            onNavigate('calendar');
+          }
+        }}
       >
         <div className="font-['ITC_Avant_Garde_Gothic:Bold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[14px] text-black text-nowrap">
           <p className="leading-[normal] whitespace-pre">Full Calendar</p>
@@ -72,15 +66,15 @@ function EventCard({ event }: { event: Event }) {
 }
 
 // Placeholder card shown when no events are available
-function PlaceholderCard({ isMentorMentee = false }: { isMentorMentee?: boolean }) {
+function PlaceholderCard() {
   return (
     <div className="bg-[#99e3ed] h-[265px] relative rounded-[15px] shrink-0 w-[280px] sm:w-[351px] flex items-center justify-center">
       <div className="text-center px-6 max-h-[200px] overflow-y-auto">
         <div className="font-['Lexend:Bold',_sans-serif] font-bold text-[18px] text-black mb-2">
-          <p className="leading-[1.2]">{isMentorMentee ? "No Mentor/Mentee Events Yet" : "No Events Yet"}</p>
+          <p className="leading-[1.2]">No Events Yet</p>
         </div>
         <div className="font-['Lexend:Regular',_sans-serif] font-normal text-[12px] text-black">
-          <p className="leading-[1.4]">{isMentorMentee ? "Mentor/Mentee events will be displayed here once they are added." : "Events will be displayed here once they are added."}</p>
+          <p className="leading-[1.4]">Events will be displayed here once they are added.</p>
         </div>
       </div>
       <div aria-hidden="true" className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[15px]" />
@@ -88,14 +82,13 @@ function PlaceholderCard({ isMentorMentee = false }: { isMentorMentee?: boolean 
   );
 }
 
-function EventsCarousel({ currentSlide, setCurrentSlide, isMentorMentee = false }: {
+function EventsCarousel({ currentSlide, setCurrentSlide }: {
   currentSlide: number,
-  setCurrentSlide: (slide: number) => void,
-  isMentorMentee?: boolean
+  setCurrentSlide: (slide: number) => void
 }) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const lastScrollTimeRef = useRef<number>(0);
-  const sortedEvents = isMentorMentee ? getMentorMenteeEvents() : getSortedEvents(); // Get events based on context
+  const sortedEvents = getSortedEvents(); // Get events sorted by date
   const totalSlides = Math.max(sortedEvents.length, 1); // At least 1 slide for placeholder
   const [cardWidth, setCardWidth] = useState(351);
   const gap = 20;
@@ -213,7 +206,7 @@ function EventsCarousel({ currentSlide, setCurrentSlide, isMentorMentee = false 
               <EventCard key={event.id} event={event} />
             ))
           ) : (
-            <PlaceholderCard isMentorMentee={isMentorMentee} />
+            <PlaceholderCard />
           )}
         </div>
         
@@ -294,25 +287,20 @@ function PaginationDots({ currentSlide, onSlideChange, totalSlides }: {
   );
 }
 
-export default function EventsSection({ onNavigate, isMentorMentee = false }: { onNavigate?: (page: string) => void, isMentorMentee?: boolean }) {
+export default function EventsSection({ onNavigate }: { onNavigate?: (page: string) => void }) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const sortedEvents = isMentorMentee ? getMentorMenteeEvents() : getSortedEvents(); // Get events based on context
+  const sortedEvents = getSortedEvents(); // Get events sorted by date
   const totalSlides = Math.max(sortedEvents.length, 1);
 
   return (
-    <div 
-      className="bg-[#69d7e5] box-border content-stretch flex flex-col gap-[15px] items-center justify-start pb-[30px] pt-[25px] px-0 relative w-full overflow-hidden"
-      data-section="mentor-mentee-events"
-      style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }}
-    >
+    <div className="bg-[#69d7e5] box-border content-stretch flex flex-col gap-[15px] items-center justify-start pb-[30px] pt-[25px] px-0 relative w-full overflow-hidden">
       <div className="flex flex-col font-['Lexend:Medium',_sans-serif] font-medium justify-center leading-[0] relative shrink-0 text-[20px] md:text-[25px] text-black text-center px-4">
-        <p className="leading-[normal]">Mentor/Mentee Events</p>
+        <p className="leading-[normal]">Events and Announcements</p>
       </div>
       <FilterButtons onNavigate={onNavigate} />
       <EventsCarousel 
         currentSlide={currentSlide}
         setCurrentSlide={setCurrentSlide}
-        isMentorMentee={isMentorMentee}
       />
       <PaginationDots 
         currentSlide={currentSlide}
