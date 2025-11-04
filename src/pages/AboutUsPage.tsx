@@ -65,7 +65,7 @@ export default function AboutUsPage() {
 
   // About Us page with sticky header behavior (same as homepage and calendar)
   return (
-    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
+    <div className="min-h-screen relative overflow-x-hidden w-full">
       {/* Header with smooth transition for about us page */}
       <div 
         ref={normalHeaderRef}

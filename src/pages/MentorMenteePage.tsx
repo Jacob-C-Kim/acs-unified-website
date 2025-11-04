@@ -75,7 +75,7 @@ export default function MentorMenteePage() {
 
   // Mentor/Mentee page with sticky header behavior
   return (
-    <div className="min-h-screen bg-white relative overflow-x-hidden w-full">
+    <div className="min-h-screen relative overflow-x-hidden w-full">
       {/* Header with smooth transition for Mentor/Mentee page */}
       <div 
         ref={normalHeaderRef}
